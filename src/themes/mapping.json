@@ -1,0 +1,39 @@
+{
+  "strict": {
+    "text-font-family": "inter-medium",
+
+    "text-heading-1-font-size": 30,
+    "text-heading-1-font-family": "inter-semibold",
+
+    "text-heading-2-font-size": 30,
+
+    "text-heading-3-font-size": 30,
+    "text-heading-3-font-family": "inter-regular",
+
+    "text-heading-4-font-size": 24,
+    "text-heading-4-font-family": "inter-semibold",
+
+    "text-heading-5-font-size": 24,
+
+    "text-heading-6-font-size": 24,
+    "text-heading-6-font-family": "inter-regular",
+
+    "text-subtitle-1-font-size": 16,
+    "text-subtitle-1-font-family": "inter-semibold",
+
+    "text-subtitle-2-font-size": 16,
+    "text-subtitle-2-font-family": "inter-semibold",
+
+    "text-paragraph-1-font-size": 16,
+
+    "text-paragraph-2-font-size": 16,
+    "text-paragraph-2-font-family": "inter-regular",
+
+    "text-caption-1-font-size": 14,
+
+    "text-caption-2-font-size": 14,
+    "text-caption-2-font-family": "inter-regular",
+
+    "text-label-font-size": 14
+  }
+}
