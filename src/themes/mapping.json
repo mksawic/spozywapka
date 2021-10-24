@@ -35,5 +35,22 @@
     "text-caption-2-font-family": "inter-regular",
 
     "text-label-font-size": 14
+  },
+  "components": {
+    "Button": {
+      "appearances": {
+        "outline": {
+          "mapping": {},
+          "variantGroups": {
+            "status": {
+              "primary": {
+                "borderColor": "color-primary-default",
+                "backgroundColor": "white"
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
