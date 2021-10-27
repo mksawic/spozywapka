@@ -9,8 +9,8 @@ import {
   useStyleSheet,
 } from "@ui-kitten/components";
 import Logo from "../../assets/img/Logo";
-import Firebase from "../../config/firebase";
-import { getAuthMessage } from "../../config/codes";
+import Firebase from "../../firebase";
+import { getAuthMessage } from "../../firebase/codes";
 import { useLoaderContext } from "../../contexts/LoaderContext";
 
 const auth = Firebase.auth();

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LoginNavigator from "./LoginNavigator";
 import BottomTabNavigator from "./BottomTabNavigator";
-import Firebase from "../config/firebase";
+import Firebase from "../firebase";
 
 const auth = Firebase.auth();
 

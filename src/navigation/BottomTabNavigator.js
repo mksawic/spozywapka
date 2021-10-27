@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { Button } from "@ui-kitten/components";
-import Firebase from "../config/firebase";
+import Firebase from "../firebase";
 
 const auth = Firebase.auth();
 

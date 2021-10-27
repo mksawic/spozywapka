@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Firebase from "../config/firebase";
+import Firebase from "../firebase";
 
 const auth = Firebase.auth();
 const initialState = {

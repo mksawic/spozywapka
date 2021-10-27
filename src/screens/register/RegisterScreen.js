@@ -14,8 +14,8 @@ import {
 } from "@ui-kitten/components";
 import Logo from "../../assets/img/Logo";
 import { BackIcon } from "../../assets/img/Icons";
-import Firebase from "../../config/firebase";
-import { getAuthMessage } from "../../config/codes";
+import Firebase from "../../firebase";
+import { getAuthMessage } from "../../firebase/codes";
 import { useLoaderContext } from "../../contexts/LoaderContext";
 
 const auth = Firebase.auth();
