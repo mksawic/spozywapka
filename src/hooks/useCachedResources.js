@@ -7,7 +7,7 @@ export default function useCachedResources() {
 
   // Load any resources or data that we need prior to rendering the app
   useEffect(() => {
-    async function loadResourcesAndDataAsync() {
+    const loadResourcesAndDataAsync = async () => {
       try {
         await SplashScreen.preventAutoHideAsync();
 
@@ -18,12 +18,12 @@ export default function useCachedResources() {
           "inter-semibold": require("../assets/fonts/Inter-SemiBold.ttf"),
         });
       } catch (loadCachedResourcesError) {
-        console.log(loadCachedResourcesError);
+        console.error(loadCachedResourcesError);
       } finally {
         setLoadingComplete(true);
         await SplashScreen.hideAsync();
       }
-    }
+    };
 
     loadResourcesAndDataAsync();
   }, []);

@@ -1,15 +1,40 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { Button } from "@ui-kitten/components";
-import Firebase from "../firebase";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {
+  BottomNavigation,
+  BottomNavigationTab,
+  Text,
+} from "@ui-kitten/components";
+import StoresScreen from "../screens/stores/StoresScreen";
+import OrdersScreen from "../screens/orders/OrdersScreen";
+import SettingsScreen from "../screens/settings/SettingsScreen";
+import { CartIcon, FileIcon, PersonIcon } from "../assets/img/Icons";
 
-const auth = Firebase.auth();
+const { Navigator, Screen } = createBottomTabNavigator();
+
+const BottomTabBar = ({ navigation, state }) => (
+  <BottomNavigation
+    selectedIndex={state.index}
+    onSelect={(index) => navigation.navigate(state.routeNames[index])}
+  >
+    <BottomNavigationTab icon={CartIcon} />
+    <BottomNavigationTab icon={FileIcon} />
+    <BottomNavigationTab icon={PersonIcon} />
+  </BottomNavigation>
+);
 
 const BottomTabNavigator = () => {
   return (
-    <NavigationContainer>
-      <Button onPress={() => auth.signOut()}>Wyloguj</Button>
-    </NavigationContainer>
+    <Navigator
+      screenOptions={{
+        headerTitleAlign: "center",
+      }}
+      tabBar={(props) => <BottomTabBar {...props} />}
+    >
+      <Screen name="Sklepy" component={StoresScreen} />
+      <Screen name="Zamówienia" component={OrdersScreen} />
+      <Screen name="Konto" component={SettingsScreen} />
+    </Navigator>
   );
 };
 

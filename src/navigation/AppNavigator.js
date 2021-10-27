@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LoginNavigator from "./LoginNavigator";
 import BottomTabNavigator from "./BottomTabNavigator";
@@ -14,7 +15,9 @@ const AppNavigator = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      {isAuthenticated ? <BottomTabNavigator /> : <LoginNavigator />}
+      <NavigationContainer>
+        {isAuthenticated ? <BottomTabNavigator /> : <LoginNavigator />}
+      </NavigationContainer>
     </SafeAreaView>
   );
 };

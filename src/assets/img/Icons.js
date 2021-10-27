@@ -7,3 +7,11 @@ export const BackIcon = (props) => (
 export const AlertIcon = (props) => (
   <Icon {...props} name="alert-circle-outline" />
 );
+
+export const CartIcon = (props) => (
+  <Icon {...props} name="shopping-cart-outline" />
+);
+
+export const FileIcon = (props) => <Icon {...props} name="file-text-outline" />;
+
+export const PersonIcon = (props) => <Icon {...props} name="person-outline" />;

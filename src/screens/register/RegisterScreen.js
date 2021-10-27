@@ -17,6 +17,7 @@ import { BackIcon } from "../../assets/img/Icons";
 import Firebase from "../../firebase";
 import { getAuthMessage } from "../../firebase/codes";
 import { useLoaderContext } from "../../contexts/LoaderContext";
+import { setNewUser } from "../../firebase/UserService";
 
 const auth = Firebase.auth();
 
@@ -34,7 +35,11 @@ const RegisterScreen = ({ navigation }) => {
       setLoading(true);
       auth
         .createUserWithEmailAndPassword(email, password)
-        .then(() => setShowModal(true))
+        .then((user) => {
+          setNewUser(user);
+          //show modal then email verification is ready
+          //setShowModal(true);
+        })
         .catch((err) => setError(getAuthMessage(err.code)))
         .finally(() => setLoading(false));
     } else setError("Hasła nie są takie same");
@@ -87,8 +92,7 @@ const RegisterScreen = ({ navigation }) => {
       <Modal visible={showModal} backdropStyle={styles.backdrop}>
         <Card style={styles.card}>
           <Text style={styles.marginBottom}>
-            Proces rejestracji przebiegł pomyślnie! Kliknij w link aktywacyjny
-            wysłany na podany adres aby móc się zalogować.
+            Proces rejestracji przebiegł pomyślnie! Teraz możesz się zalogować.
           </Text>
           <Button
             onPress={() => {
