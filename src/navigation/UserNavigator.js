@@ -5,7 +5,7 @@ import {
   BottomNavigationTab,
   Text,
 } from "@ui-kitten/components";
-import StoresScreen from "../screens/stores/StoresScreen";
+import StoreStackNavigator from "../screens/stores/navigation/StoreStackNavigator";
 import OrdersScreen from "../screens/orders/OrdersScreen";
 import SettingsScreen from "../screens/settings/SettingsScreen";
 import { CartIcon, FileIcon, PersonIcon } from "../assets/img/Icons";
@@ -23,7 +23,7 @@ const BottomTabBar = ({ navigation, state }) => (
   </BottomNavigation>
 );
 
-const BottomTabNavigator = () => {
+const UserNavigator = () => {
   return (
     <Navigator
       screenOptions={{
@@ -31,11 +31,15 @@ const BottomTabNavigator = () => {
       }}
       tabBar={(props) => <BottomTabBar {...props} />}
     >
-      <Screen name="Sklepy" component={StoresScreen} />
+      <Screen
+        options={{ headerShown: false }}
+        name="Sklepy"
+        component={StoreStackNavigator}
+      />
       <Screen name="Zamówienia" component={OrdersScreen} />
       <Screen name="Konto" component={SettingsScreen} />
     </Navigator>
   );
 };
 
-export default BottomTabNavigator;
+export default UserNavigator;

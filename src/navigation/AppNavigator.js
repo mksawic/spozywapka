@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LoginNavigator from "./LoginNavigator";
-import BottomTabNavigator from "./BottomTabNavigator";
 import Firebase from "../firebase";
+import UserNavigator from "./UserNavigator";
 
 const auth = Firebase.auth();
 
@@ -16,7 +16,7 @@ const AppNavigator = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
-        {isAuthenticated ? <BottomTabNavigator /> : <LoginNavigator />}
+        {isAuthenticated ? <UserNavigator /> : <LoginNavigator />}
       </NavigationContainer>
     </SafeAreaView>
   );
