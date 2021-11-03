@@ -1,7 +1,8 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import StoreTopNavigator from "./StoreTopNavigator";
-import StoreProducts from "../StoreProducts";
+import ProductsScreen from "../ProductsScreen";
+import SummaryScreen from "../SummaryScreen";
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -15,10 +16,15 @@ const StoreStackNavigator = () => {
       />
       <Screen
         name="Products"
-        component={StoreProducts}
+        component={ProductsScreen}
         options={({ route }) => ({
           title: route.params?.store?.name || "Produkty",
         })}
+      />
+      <Screen
+        name="Summary"
+        options={{ title: "Podsumowanie" }}
+        component={SummaryScreen}
       />
     </Navigator>
   );

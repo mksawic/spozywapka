@@ -15,3 +15,7 @@ export const CartIcon = (props) => (
 export const FileIcon = (props) => <Icon {...props} name="file-text-outline" />;
 
 export const PersonIcon = (props) => <Icon {...props} name="person-outline" />;
+
+export const MinusIcon = (props) => <Icon {...props} name="minus" />;
+
+export const PlusIcon = (props) => <Icon {...props} name="plus" />;

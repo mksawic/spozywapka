@@ -37,7 +37,12 @@ const StoreListScreen = () => {
 
   return data ? (
     <Layout style={styles.container}>
-      <Input placeholder="Szukaj" value={search} onChangeText={setSearch} />
+      <Input
+        style={styles.search}
+        placeholder="Szukaj"
+        value={search}
+        onChangeText={setSearch}
+      />
       {error && (
         <Text style={styles.error} status="danger">
           {error}
@@ -62,7 +67,9 @@ const StoreListScreen = () => {
 const themedStyles = StyleService.create({
   container: {
     flex: 1,
-    paddingVertical: 16,
+  },
+  search: {
+    margin: 8,
   },
   error: {
     padding: 8,
