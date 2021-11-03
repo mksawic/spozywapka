@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Firebase from "../firebase";
 
-const auth = Firebase.auth();
 const initialState = {
+  store: null,
   products: {},
   total: 0,
 };
@@ -20,7 +19,11 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    setInitialProducts: (state, action) => {
+    setInitial: () => initialState,
+    setStore: (state, action) => {
+      state.store = action.payload;
+    },
+    setProducts: (state, action) => {
       action.payload.forEach((product) => {
         state.products[product.id] = { ...product, amount: 0 };
       });
@@ -39,8 +42,14 @@ export const cartSlice = createSlice({
       const { item, amount } = action.payload;
       const product = state.products[item.id];
       state.total -= product.price * product.amount;
-      state.products[item.id].amount = amount;
+      product.amount = amount;
       state.total += product.price * product.amount;
+    },
+    resetAmount: (state, action) => {
+      const { id } = action.payload;
+      const product = state.products[id];
+      state.total -= product.price * product.amount;
+      product.amount = 0;
     },
   },
   // extraReducers: (builder) => {
@@ -59,10 +68,13 @@ export const cartSlice = createSlice({
 });
 
 export const {
-  setInitialProducts,
+  setInitial,
+  setStore,
+  setProducts,
   addOneProduct,
   removeOneProduct,
   setAmount,
+  resetAmount,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

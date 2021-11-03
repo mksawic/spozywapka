@@ -10,7 +10,7 @@ import {
   Text,
   Button,
 } from "@ui-kitten/components";
-import { setInitialProducts } from "../../store/cartSlice";
+import { setProducts } from "../../store/cartSlice";
 import ProductListItem from "./components/ProductListItem";
 import AppLoader from "../../components/AppLoader";
 import { getAllProducts } from "../../firebase/ProductService";
@@ -28,7 +28,7 @@ const ProductsScreen = ({ navigation, route }) => {
     getAllProducts(store)
       .then((res) => {
         setData(res);
-        dispatch(setInitialProducts(res));
+        dispatch(setProducts(res));
       })
       .catch((err) => {
         setError(err.message);

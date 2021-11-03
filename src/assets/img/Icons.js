@@ -19,3 +19,5 @@ export const PersonIcon = (props) => <Icon {...props} name="person-outline" />;
 export const MinusIcon = (props) => <Icon {...props} name="minus" />;
 
 export const PlusIcon = (props) => <Icon {...props} name="plus" />;
+
+export const CloseIcon = (props) => <Icon {...props} name="close" />;

@@ -6,6 +6,7 @@ import ProductListFooter from "./ProductListFooter";
 
 const ProductListItem = ({ item }) => {
   const styles = useStyleSheet(themedStyles);
+
   return (
     <Card
       style={styles.productItem}
@@ -17,7 +18,7 @@ const ProductListItem = ({ item }) => {
       <Text appearance="hint" category="c1">
         {item.description}
       </Text>
-      <Text category="s1">{`${item.price} zł`}</Text>
+      <Text category="s1">{`${item.price.toFixed(2)} zł`}</Text>
     </Card>
   );
 };

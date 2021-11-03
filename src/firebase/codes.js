@@ -81,3 +81,7 @@ export const authMessages = {
 
 export const getAuthMessage = (errorCode) =>
   authMessages[errorCode] || "Wystąpił nieznany błąd.";
+
+export const firestoreMessages = {};
+export const getFirestoreMessage = (error) =>
+  firestoreMessages[error.code] || "Wystąpił nieznany błąd.";
