@@ -16,6 +16,7 @@ import { useLoaderContext } from "../../contexts/LoaderContext";
 import { addNewOrder } from "../../firebase/OrderService";
 import { getFirestoreMessage } from "../../firebase/codes";
 import { setInitial } from "../../store/cartSlice";
+import { getOrdersAction } from "../../store/orderSlice";
 
 const SummaryScreen = ({ navigation }) => {
   const styles = useStyleSheet(themedStyle);
@@ -27,7 +28,10 @@ const SummaryScreen = ({ navigation }) => {
   const handleCheckout = () => {
     setLoading(true);
     addNewOrder(Object.values(products), store)
-      .then(() => setShowModal(true))
+      .then(() => {
+        dispatch(getOrdersAction());
+        setShowModal(true);
+      })
       .catch((err) => setError(getFirestoreMessage(err.message)))
       .finally(() => setLoading(false));
   };
@@ -62,7 +66,7 @@ const SummaryScreen = ({ navigation }) => {
             onPress={() => {
               setShowModal(false);
               dispatch(setInitial());
-              navigation.navigate("Stores");
+              navigation.navigate("StoreNavigator");
             }}
           >
             OK

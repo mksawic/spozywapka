@@ -6,15 +6,6 @@ const initialState = {
   total: 0,
 };
 
-// export const authenticate = createAsyncThunk(
-//   "carts/authenticate",
-//   async ({ email, password }) => {
-//     await auth.signInWithEmailAndPassword(email, password);
-//     console.log(auth);
-//     return response;
-//   }
-// );
-
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
@@ -52,19 +43,6 @@ export const cartSlice = createSlice({
       product.amount = 0;
     },
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase(authenticate.pending, (state) => {
-  //     state.loading = true;
-  //   });
-  //   builder.addCase(authenticate.fulfilled, (state, action) => {
-  //     console.log(action.payload);
-  //     state.loading = false;
-  //   });
-  //   builder.addCase(authenticate.rejected, (state, action) => {
-  //     console.log(action);
-  //     state.loading = false;
-  //   });
-  // },
 });
 
 export const {

@@ -6,9 +6,9 @@ import {
   Text,
 } from "@ui-kitten/components";
 import StoreStackNavigator from "../screens/stores/navigation/StoreStackNavigator";
-import OrdersScreen from "../screens/orders/OrdersScreen";
 import SettingsScreen from "../screens/settings/SettingsScreen";
 import { CartIcon, FileIcon, PersonIcon } from "../assets/img/Icons";
+import OrderStackNavigator from "../screens/orders/navigation/OrderStackNavigator";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -32,12 +32,20 @@ const UserNavigator = () => {
       tabBar={(props) => <BottomTabBar {...props} />}
     >
       <Screen
-        options={{ headerShown: false }}
-        name="Sklepy"
+        name="Stores"
         component={StoreStackNavigator}
+        options={{ headerShown: false }}
       />
-      <Screen name="Zamówienia" component={OrdersScreen} />
-      <Screen name="Konto" component={SettingsScreen} />
+      <Screen
+        name="Orders"
+        component={OrderStackNavigator}
+        options={{ headerShown: false }}
+      />
+      <Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{ title: "Konto" }}
+      />
     </Navigator>
   );
 };

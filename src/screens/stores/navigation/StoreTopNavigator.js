@@ -17,13 +17,7 @@ const TopTabBar = ({ navigation, state }) => (
 );
 
 const StoreTopNavigator = () => (
-  <Navigator
-    tabBar={(props) => <TopTabBar {...props} />}
-    screenOptions={{
-      tabBarLabelStyle: { fontSize: 16 },
-      tabBarStyle: { backgroundColor: "powderblue" },
-    }}
-  >
+  <Navigator tabBar={(props) => <TopTabBar {...props} />}>
     <Screen name="StoreList" component={StoreListScreen} />
     <Screen name="StoreMap" component={StoreMapScreen} />
   </Navigator>
