@@ -20,6 +20,11 @@ export default {
       supportsTablet: true,
     },
     android: {
+      config: {
+        googleMaps: {
+          apiKey: process.env.API_KEY,
+        },
+      },
       adaptiveIcon: {
         foregroundImage: "./src/assets/adaptive-icon.png",
         backgroundColor: "#3DBA49",

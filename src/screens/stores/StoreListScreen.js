@@ -9,30 +9,18 @@ import {
   Text,
 } from "@ui-kitten/components";
 import AppLoader from "../../components/AppLoader";
-import { getAllStores } from "../../firebase/StoreService";
 import StoreListItem from "./components/StoreListItem";
-import { getAuthMessage } from "../../firebase/codes";
+import { useDispatch, useSelector } from "react-redux";
+import { getStoresAction } from "../../store/storeSlice";
 
 const StoreListScreen = () => {
   const styles = useStyleSheet(themedStyles);
-  const [refreshing, setRefreshing] = useState(false);
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  const { data, refreshing, error } = useSelector((state) => state.stores);
+  const dispatch = useDispatch();
   const [search, setSearch] = useState("");
 
-  const getData = () => {
-    setRefreshing(true);
-    getAllStores()
-      .then((res) => setData(res))
-      .catch((err) => {
-        setError(getAuthMessage(err.code));
-        setData([]);
-      })
-      .finally(() => setRefreshing(false));
-  };
-
   useEffect(() => {
-    getData();
+    dispatch(getStoresAction());
   }, []);
 
   return data ? (
@@ -55,7 +43,7 @@ const StoreListScreen = () => {
         )}
         ItemSeparatorComponent={Divider}
         renderItem={(props) => <StoreListItem {...props} />}
-        onRefresh={getData}
+        onRefresh={() => dispatch(getStoresAction())}
         refreshing={refreshing}
       />
     </Layout>

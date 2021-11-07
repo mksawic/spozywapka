@@ -27,7 +27,10 @@ const SummaryScreen = ({ navigation }) => {
   const { setLoading } = useLoaderContext();
   const handleCheckout = () => {
     setLoading(true);
-    addNewOrder(Object.values(products), store)
+    addNewOrder(
+      Object.values(products).filter((product) => product.amount > 0),
+      store
+    )
       .then(() => {
         dispatch(getOrdersAction());
         setShowModal(true);

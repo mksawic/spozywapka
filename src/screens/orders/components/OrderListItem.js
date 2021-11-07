@@ -17,7 +17,7 @@ const OrderListItem = ({ item, ...props }) => {
     <ListItem
       title={`${item.store.name} (${orderLabels[item.status]})`}
       description={dateFormatter(new Date(item.startDate))}
-      accessoryRight={() => <Text category="s1">{amount} zł</Text>}
+      accessoryRight={() => <Text category="s1">{amount.toFixed(2)} zł</Text>}
       onPress={handleOnPress}
       {...props}
     />
