@@ -5,6 +5,8 @@ import StoreStackNavigator from "../screens/stores/navigation/StoreStackNavigato
 import SettingsScreen from "../screens/settings/SettingsScreen";
 import { CartIcon, FileIcon, PersonIcon } from "../assets/img/Icons";
 import OrderStackNavigator from "../screens/orders/navigation/OrderStackNavigator";
+import WorkerOrderStackNavigator from "../screens/worker/navigation/WorkerOrderStackNavigator";
+import ProductStackNavigator from "../screens/worker/navigation/ProductStackNavigator";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -13,13 +15,13 @@ const BottomTabBar = ({ navigation, state }) => (
     selectedIndex={state.index}
     onSelect={(index) => navigation.navigate(state.routeNames[index])}
   >
-    <BottomNavigationTab icon={CartIcon} />
     <BottomNavigationTab icon={FileIcon} />
+    <BottomNavigationTab icon={CartIcon} />
     <BottomNavigationTab icon={PersonIcon} />
   </BottomNavigation>
 );
 
-const UserNavigator = () => {
+const WorkerNavigator = () => {
   return (
     <Navigator
       screenOptions={{
@@ -28,13 +30,13 @@ const UserNavigator = () => {
       tabBar={(props) => <BottomTabBar {...props} />}
     >
       <Screen
-        name="Stores"
-        component={StoreStackNavigator}
+        name="ManageOrders"
+        component={WorkerOrderStackNavigator}
         options={{ headerShown: false }}
       />
       <Screen
-        name="Orders"
-        component={OrderStackNavigator}
+        name="ManageProducts"
+        component={ProductStackNavigator}
         options={{ headerShown: false }}
       />
       <Screen
@@ -46,4 +48,4 @@ const UserNavigator = () => {
   );
 };
 
-export default UserNavigator;
+export default WorkerNavigator;

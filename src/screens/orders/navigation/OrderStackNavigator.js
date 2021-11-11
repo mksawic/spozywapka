@@ -7,15 +7,11 @@ const { Navigator, Screen } = createNativeStackNavigator();
 
 const OrderStackNavigator = () => {
   return (
-    <Navigator
-      screenOptions={{
-        headerTitleAlign: "center",
-      }}
-    >
+    <Navigator>
       <Screen
         name="OrderList"
         component={OrderListScreen}
-        options={{ title: "Zamówienia" }}
+        options={{ title: "Zamówienia", headerTitleAlign: "center" }}
       />
       <Screen
         name="OrderDetails"

@@ -8,14 +8,7 @@ const initialState = {
   error: null,
 };
 export const getStoresAction = createAsyncThunk("store/get", async () => {
-  const stores = await getAllStores();
-  return stores.map((store) => ({
-    ...store,
-    geo: {
-      latitude: store.geo.latitude,
-      longitude: store.geo.longitude,
-    },
-  }));
+  return await getAllStores();
 });
 
 export const storeSlice = createSlice({

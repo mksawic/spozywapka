@@ -7,6 +7,11 @@ export const getAllUsers = async () => {
   return snapshot.docs.map((user) => ({ id: user.id, ...user.data() }));
 };
 
+export const getUser = async (id) => {
+  const snapshot = await usersRef.doc(id).get();
+  return { id, ...snapshot.data() };
+};
+
 export const setNewUser = async (data) => {
   await usersRef.doc(data.uid).set({
     email: data.user.email,

@@ -13,7 +13,7 @@ import {
 import { setProducts } from "../../store/cartSlice";
 import ProductListItem from "./components/ProductListItem";
 import AppLoader from "../../components/AppLoader";
-import { getAllProducts } from "../../firebase/ProductService";
+import { getProducts } from "../../firebase/ProductService";
 
 const ProductsScreen = ({ navigation, route }) => {
   const styles = useStyleSheet(themedStyles);
@@ -25,7 +25,7 @@ const ProductsScreen = ({ navigation, route }) => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    getAllProducts(store)
+    getProducts(store.id)
       .then((res) => {
         setData(res);
         dispatch(setProducts(res));
