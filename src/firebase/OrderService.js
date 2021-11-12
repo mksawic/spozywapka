@@ -38,7 +38,7 @@ export const getOrders = async () => {
 };
 
 export const getOrdersByStore = async (id) => {
-  const snapshot = await ordersRef.where("store", "==", id).get();
+  const snapshot = await ordersRef.where("store.id", "==", id).get();
   return snapshot.docs
     .map((order) => ({
       id: order.id,
@@ -47,6 +47,11 @@ export const getOrdersByStore = async (id) => {
       endDate: order.data().endDate?.toMillis(),
     }))
     .sort((a, b) => b.startDate - a.startDate);
+};
+
+export const updateOrder = async (order) => {
+  const { id, startDate, endDate, ...data } = order;
+  return await ordersRef.doc(id).update(data);
 };
 
 export const cancelOrder = async (order) => {

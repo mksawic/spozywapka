@@ -1,12 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getOrders, getOrdersByStore } from "../firebase/OrderService";
+import { getFirestoreMessage } from "../firebase/codes";
+import { getOrdersByStore, updateOrder } from "../firebase/OrderService";
 import { getProducts } from "../firebase/ProductService";
 import { getStore } from "../firebase/StoreService";
 const initialState = {
   store: null,
   products: null,
   orders: null,
-  status: "init",
+  refreshing: false,
+  error: null,
 };
 
 export const getWorkerData = createAsyncThunk("worker/get", async (storeId) => {
@@ -18,6 +20,25 @@ export const getWorkerData = createAsyncThunk("worker/get", async (storeId) => {
   return await Promise.all(promises);
 });
 
+export const getOrdersByStoreAction = createAsyncThunk(
+  "worker/getOrders",
+  async (_, { getState }) => {
+    return await getOrdersByStore(getState().worker.store.id);
+  }
+);
+
+export const updateOrderAction = createAsyncThunk(
+  "worker/updateOrder",
+  async (order, { fulfillWithValue, rejectWithValue }) => {
+    try {
+      await updateOrder(order);
+      return order;
+    } catch (err) {
+      rejectWithValue(err);
+    }
+  }
+);
+
 export const workerSlice = createSlice({
   name: "worker",
   initialState,
@@ -26,17 +47,48 @@ export const workerSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getWorkerData.pending, (state) => {
-      state.status = "loading";
+      state.refreshing = true;
+      state.error = null;
     });
     builder.addCase(getWorkerData.fulfilled, (state, action) => {
-      const [store, orders, products] = action.payload;
+      const [store, products, orders] = action.payload;
       state.store = store;
-      state.orders = orders;
       state.products = products;
-      state.status = "success";
+      state.orders = orders;
+      state.refreshing = false;
     });
-    builder.addCase(getWorkerData.rejected, (state) => {
-      state.status = "error";
+    builder.addCase(getWorkerData.rejected, (state, action) => {
+      state.refreshing = false;
+      state.error = getFirestoreMessage(action.payload);
+    });
+
+    builder.addCase(getOrdersByStoreAction.pending, (state) => {
+      state.refreshing = true;
+      state.error = null;
+    });
+    builder.addCase(getOrdersByStoreAction.fulfilled, (state, action) => {
+      state.orders = action.payload;
+      state.refreshing = false;
+    });
+    builder.addCase(getOrdersByStoreAction.rejected, (state, action) => {
+      state.refreshing = false;
+      state.error = getFirestoreMessage(action.payload);
+    });
+
+    builder.addCase(updateOrderAction.pending, (state) => {
+      state.refreshing = true;
+      state.error = null;
+    });
+    builder.addCase(updateOrderAction.fulfilled, (state, action) => {
+      console.log(action);
+      const order = action.payload;
+      const index = state.orders.map((o) => o.id).indexOf(order.id);
+      state.orders[index] = order;
+      state.refreshing = false;
+    });
+    builder.addCase(updateOrderAction.rejected, (state, action) => {
+      state.refreshing = false;
+      state.error = getFirestoreMessage(action.payload);
     });
   },
 });
