@@ -20,6 +20,13 @@ export const getWorkerData = createAsyncThunk("worker/get", async (storeId) => {
   return await Promise.all(promises);
 });
 
+export const getWorkerProducts = createAsyncThunk(
+  "worker/getProducts",
+  async (_, { getState }) => {
+    return await getProducts(getState().worker.store.id);
+  }
+);
+
 export const getOrdersByStoreAction = createAsyncThunk(
   "worker/getOrders",
   async (_, { getState }) => {
@@ -80,13 +87,24 @@ export const workerSlice = createSlice({
       state.error = null;
     });
     builder.addCase(updateOrderAction.fulfilled, (state, action) => {
-      console.log(action);
       const order = action.payload;
       const index = state.orders.map((o) => o.id).indexOf(order.id);
       state.orders[index] = order;
       state.refreshing = false;
     });
     builder.addCase(updateOrderAction.rejected, (state, action) => {
+      state.refreshing = false;
+      state.error = getFirestoreMessage(action.payload);
+    });
+    builder.addCase(getWorkerProducts.pending, (state) => {
+      state.refreshing = true;
+      state.error = null;
+    });
+    builder.addCase(getWorkerProducts.fulfilled, (state, action) => {
+      state.products = action.payload;
+      state.refreshing = false;
+    });
+    builder.addCase(getWorkerProducts.rejected, (state, action) => {
       state.refreshing = false;
       state.error = getFirestoreMessage(action.payload);
     });
