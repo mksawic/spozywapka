@@ -4,9 +4,9 @@ import { getOrdersByStore, updateOrder } from "../firebase/OrderService";
 import { getProducts } from "../firebase/ProductService";
 import { getStore } from "../firebase/StoreService";
 const initialState = {
-  store: null,
-  products: null,
-  orders: null,
+  store: [],
+  products: [],
+  orders: [],
   refreshing: false,
   error: null,
 };

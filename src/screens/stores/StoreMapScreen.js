@@ -47,7 +47,7 @@ const StoreMapScreen = ({ navigation }) => {
           <Marker key={store.id} coordinate={{ ...store.geo }} pinColor="green">
             <Callout onPress={() => handleOrder(store)}>
               <View style={styles.pinCallout}>
-                <Text category="h4">{`${store.name} ${
+                <Text category="s1">{`${store.name} ${
                   coordinates
                     ? `(${calculateDistance(coordinates, store.geo)} km)`
                     : ""
@@ -77,6 +77,7 @@ const themedStyles = StyleService.create({
     height: Dimensions.get("window").height,
   },
   pinCallout: {
+    maxWidth: 250,
     padding: 4,
   },
 });

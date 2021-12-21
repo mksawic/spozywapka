@@ -5,6 +5,7 @@ import ThemeProvider from "./themes";
 import store from "./store";
 import AppNavigator from "./navigation/AppNavigator";
 import LoaderProvider from "./contexts/LoaderContext";
+import { StatusBar } from "expo-status-bar";
 
 const Root = () => {
   const isLoadingComplete = useCachedResources();
@@ -17,6 +18,7 @@ const Root = () => {
           </LoaderProvider>
         </Provider>
       </ThemeProvider>
+      <StatusBar backgroundColor="black" style="light" />
     </>
   ) : null;
 };

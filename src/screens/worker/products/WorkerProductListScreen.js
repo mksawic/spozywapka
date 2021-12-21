@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   Layout,
   StyleService,
@@ -14,8 +14,7 @@ import ProductListItem from "./components/ProductListItem";
 
 const WorkerProductListScreen = ({ navigation }) => {
   const styles = useStyleSheet(themedStyles);
-  const products = useSelector((state) => state.worker.products);
-  const [error] = useState(null);
+  const { products, error } = useSelector((state) => state.worker);
   const [search, setSearch] = useState("");
 
   return (
@@ -42,10 +41,11 @@ const WorkerProductListScreen = ({ navigation }) => {
           <ProductListItem navigation={navigation} {...props} />
         )}
       />
+
       <Button
         onPress={() =>
           navigation.navigate("WorkerProductDetails", {
-            product: { name: "", description: "", price: 0, image: null },
+            product: { name: "Nazwa", description: "", price: 0, image: null },
           })
         }
         style={styles.floating}

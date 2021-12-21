@@ -13,7 +13,7 @@ export const getUser = async (id) => {
 };
 
 export const setNewUser = async (data) => {
-  await usersRef.doc(data.uid).set({
+  await usersRef.doc(data.user.uid).set({
     email: data.user.email,
     store: null,
   });

@@ -84,4 +84,4 @@ export const getAuthMessage = (errorCode) =>
 
 export const firestoreMessages = {};
 export const getFirestoreMessage = (error) =>
-  firestoreMessages[error.code] || "Wystąpił nieznany błąd.";
+  error?.code ? firestoreMessages[error.code] : "Wystąpił nieznany błąd.";

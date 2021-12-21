@@ -12,6 +12,8 @@ import AppLoader from "../../components/AppLoader";
 import StoreListItem from "./components/StoreListItem";
 import { useDispatch, useSelector } from "react-redux";
 import { getStoresAction } from "../../store/storeSlice";
+import useLocation from "../../hooks/useLocation";
+import useDistance from "../../hooks/useDistance";
 
 const StoreListScreen = () => {
   const styles = useStyleSheet(themedStyles);
@@ -19,6 +21,18 @@ const StoreListScreen = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
 
+  const [coordinates] = useLocation();
+  const calculateDistance = useDistance();
+  const sortByDistance = (a, b) => {
+    return (
+      calculateDistance(coordinates, a.geo) -
+      calculateDistance(coordinates, b.geo)
+    );
+  };
+
+  const list = data?.filter((s) =>
+    s.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+  );
   useEffect(() => {
     dispatch(getStoresAction());
   }, []);
@@ -38,9 +52,7 @@ const StoreListScreen = () => {
       )}
       <List
         style={styles.list}
-        data={data.filter((s) =>
-          s.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-        )}
+        data={coordinates ? list.sort(sortByDistance) : list}
         ItemSeparatorComponent={Divider}
         renderItem={(props) => <StoreListItem {...props} />}
         onRefresh={() => dispatch(getStoresAction())}
