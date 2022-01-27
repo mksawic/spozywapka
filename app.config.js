@@ -20,6 +20,7 @@ export default {
       supportsTablet: true,
     },
     android: {
+      package: "com.mksawic.spozywapka",
       config: {
         googleMaps: {
           apiKey: process.env.API_KEY,
