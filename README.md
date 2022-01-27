@@ -9,7 +9,8 @@ This app was created in purpose of engineer thesis. It's simple business applica
 
 ## How to run?
 #### Testing:
-  1. Install app using .apk file
+  1. Download [.apk file](https://drive.google.com/file/d/1mDsQrvbg-tYbcRoiMv_ErblwrxzR6U1i/view?usp=sharing)
+  2. Copy to Android device and install
   
 #### Development:
   1. Clone repository
