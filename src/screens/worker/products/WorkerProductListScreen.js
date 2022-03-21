@@ -40,6 +40,8 @@ const WorkerProductListScreen = ({ navigation }) => {
         renderItem={(props) => (
           <ProductListItem navigation={navigation} {...props} />
         )}
+        ListFooterComponent={() => <Layout />}
+        ListFooterComponentStyle={{ height: 80 }}
       />
 
       <Button

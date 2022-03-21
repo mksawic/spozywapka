@@ -24,6 +24,7 @@ const UserNavigator = () => {
     <Navigator
       screenOptions={{
         headerTitleAlign: "center",
+        unmountOnBlur: true,
       }}
       tabBar={(props) => <BottomTabBar {...props} />}
     >

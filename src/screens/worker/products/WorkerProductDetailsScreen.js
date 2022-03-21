@@ -23,6 +23,7 @@ import {
   updateProduct,
 } from "../../../firebase/ProductService";
 import { getWorkerProducts } from "../../../store/workerSlice";
+import { ScrollView } from "react-native-gesture-handler";
 
 const WorkerProductDetailsScreen = ({ navigation, route }) => {
   const placeholder = require("../../../assets/img/product_placeholder.png");
@@ -78,73 +79,75 @@ const WorkerProductDetailsScreen = ({ navigation, route }) => {
   };
 
   return (
-    <Layout style={styles.container}>
-      <TouchableOpacity onPress={() => openImagePickerAsync()}>
-        <ImageBackground
-          style={styles.image}
-          source={product.image ? { uri: product.image } : placeholder}
+    <ScrollView>
+      <Layout style={styles.container}>
+        <TouchableOpacity onPress={() => openImagePickerAsync()}>
+          <ImageBackground
+            style={styles.image}
+            source={product.image ? { uri: product.image } : placeholder}
+          >
+            {product.image && (
+              <Button
+                status="danger"
+                size="small"
+                style={styles.trashButton}
+                accessoryLeft={TrashIcon}
+                onPress={() => handleChange(null, "image")}
+              />
+            )}
+          </ImageBackground>
+        </TouchableOpacity>
+
+        <Input
+          value={product.name}
+          style={styles.marginBottom}
+          label="Nazwa"
+          onChangeText={(value) => handleChange(value, "name")}
+          status={!product.name ? "danger" : "basic"}
+        />
+        {!product.name && (
+          <Text appearance="hint" category="c1" status="danger">
+            Nazwa jest wymagana
+          </Text>
+        )}
+        <Input
+          multiline
+          style={styles.marginBottom}
+          textAlignVertical="top"
+          textStyle={{ minHeight: 50 }}
+          value={product.description}
+          label="Opis"
+          onChangeText={(value) => handleChange(value, "description")}
+        />
+
+        <Input
+          value={product.price.toString()}
+          style={styles.marginBottom}
+          label="Cena"
+          onChangeText={(value) => handleChange(value, "price")}
+          keyboardType="decimal-pad"
+          status={!isPriceValid ? "danger" : "basic"}
+        />
+        {!isPriceValid && (
+          <Text appearance="hint" category="c1" status="danger">
+            Nieprawidłowa cena
+          </Text>
+        )}
+        <Button
+          style={styles.button}
+          onPress={handleSave}
+          size="large"
+          disabled={!isPriceValid || !product.name}
         >
-          {product.image && (
-            <Button
-              status="danger"
-              size="small"
-              style={styles.trashButton}
-              accessoryLeft={TrashIcon}
-              onPress={() => handleChange(null, "image")}
-            />
-          )}
-        </ImageBackground>
-      </TouchableOpacity>
-
-      <Input
-        value={product.name}
-        style={styles.marginBottom}
-        label="Nazwa"
-        onChangeText={(value) => handleChange(value, "name")}
-        status={!product.name ? "danger" : "basic"}
-      />
-      {!product.name && (
-        <Text appearance="hint" category="c1" status="danger">
-          Nazwa jest wymagana
-        </Text>
-      )}
-      <Input
-        multiline
-        style={styles.marginBottom}
-        textAlignVertical="top"
-        textStyle={{ minHeight: 50 }}
-        value={product.description}
-        label="Opis"
-        onChangeText={(value) => handleChange(value, "description")}
-      />
-
-      <Input
-        value={product.price.toString()}
-        style={styles.marginBottom}
-        label="Cena"
-        onChangeText={(value) => handleChange(value, "price")}
-        keyboardType="decimal-pad"
-        status={!isPriceValid ? "danger" : "basic"}
-      />
-      {!isPriceValid && (
-        <Text appearance="hint" category="c1" status="danger">
-          Nieprawidłowa cena
-        </Text>
-      )}
-      <Button
-        style={styles.button}
-        onPress={handleSave}
-        size="large"
-        disabled={!isPriceValid || !product.name}
-      >
-        Zapisz
-      </Button>
-      {product?.id && (
-        <Button status="danger" onPress={handleDelete} size="large">
-          Usuń
+          Zapisz
         </Button>
-      )}
-    </Layout>
+        {product?.id && (
+          <Button status="danger" onPress={handleDelete} size="large">
+            Usuń
+          </Button>
+        )}
+      </Layout>
+    </ScrollView>
   );
 };
 

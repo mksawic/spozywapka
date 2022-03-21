@@ -1,10 +1,8 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BottomNavigation, BottomNavigationTab } from "@ui-kitten/components";
-import StoreStackNavigator from "../screens/stores/navigation/StoreStackNavigator";
 import SettingsScreen from "../screens/settings/SettingsScreen";
 import { CartIcon, FileIcon, PersonIcon } from "../assets/img/Icons";
-import OrderStackNavigator from "../screens/orders/navigation/OrderStackNavigator";
 import WorkerOrderStackNavigator from "../screens/worker/navigation/WorkerOrderStackNavigator";
 import ProductStackNavigator from "../screens/worker/navigation/ProductStackNavigator";
 
@@ -26,6 +24,7 @@ const WorkerNavigator = () => {
     <Navigator
       screenOptions={{
         headerTitleAlign: "center",
+        unmountOnBlur: true,
       }}
       tabBar={(props) => <BottomTabBar {...props} />}
     >
