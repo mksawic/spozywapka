@@ -18,12 +18,14 @@ import Firebase from "../../firebase";
 import { getAuthMessage } from "../../firebase/codes";
 import { useLoaderContext } from "../../contexts/LoaderContext";
 import { setNewUser } from "../../firebase/UserService";
+import useKeyboardListener from "../../hooks/useKeyboardListener";
 
 const auth = Firebase.auth();
 
 const RegisterScreen = ({ navigation }) => {
   const styles = useStyleSheet(themedStyles);
   const { setLoading } = useLoaderContext();
+  const isKeyboardVisible = useKeyboardListener();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [retypePassword, setRetypePassword] = useState("");
@@ -52,7 +54,7 @@ const RegisterScreen = ({ navigation }) => {
     <>
       <TopNavigation accessoryLeft={BackAction} style={styles.topNavigation} />
       <Layout style={styles.container}>
-        <Logo />
+        {!isKeyboardVisible && <Logo />}
         <View style={styles.inputWrapper}>
           <Input
             style={styles.marginBottom}

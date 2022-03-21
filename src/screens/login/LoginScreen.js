@@ -12,12 +12,14 @@ import Logo from "../../assets/img/Logo";
 import Firebase from "../../firebase";
 import { getAuthMessage } from "../../firebase/codes";
 import { useLoaderContext } from "../../contexts/LoaderContext";
+import useKeyboardListener from "../../hooks/useKeyboardListener";
 
 const auth = Firebase.auth();
 
 const LoginScreen = ({ navigation }) => {
   const styles = useStyleSheet(themedStyles);
   const { setLoading } = useLoaderContext();
+  const isKeyboardVisible = useKeyboardListener();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
@@ -28,51 +30,49 @@ const LoginScreen = ({ navigation }) => {
       .catch((err) => setError(getAuthMessage(err.code)))
       .finally(() => setLoading(false));
   };
-
   return (
-    <>
-      <Layout style={styles.container}>
-        <Logo />
-        <View style={styles.inputWrapper}>
-          <Input
-            style={styles.marginBottom}
-            size="large"
-            placeholder="Email"
-            value={email}
-            onChangeText={setEmail}
-            autoComplete="email"
-            keyboardType="email-address"
-            status={error ? "warning" : undefined}
-          />
-          <Input
-            size="large"
-            placeholder="Hasło"
-            value={password}
-            onChangeText={setPassword}
-            status={error ? "warning" : undefined}
-            secureTextEntry
-          />
-        </View>
-        <Text status="warning">{error}</Text>
-        <View style={styles.buttonWrapper}>
-          <Button
-            size="large"
-            style={styles.marginBottom}
-            onPress={handleLogin}
-          >
-            Zaloguj się
-          </Button>
-          <Button
-            size="large"
-            style={styles.button}
-            appearance="outline"
-            onPress={() => navigation.navigate("Register")}
-          >
-            Rejestracja
-          </Button>
-        </View>
-      </Layout>
-    </>
+    <Layout
+      style={{
+        ...styles.container,
+        justifyContent: isKeyboardVisible ? "flex-end" : "space-between",
+      }}
+    >
+      {!isKeyboardVisible && <Logo />}
+      <View style={styles.inputWrapper}>
+        <Input
+          style={styles.marginBottom}
+          size="large"
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          autoComplete="email"
+          keyboardType="email-address"
+          status={error ? "warning" : undefined}
+        />
+        <Input
+          size="large"
+          placeholder="Hasło"
+          value={password}
+          onChangeText={setPassword}
+          status={error ? "warning" : undefined}
+          secureTextEntry
+        />
+      </View>
+      <Text status="warning">{error}</Text>
+      <View style={styles.buttonWrapper}>
+        <Button size="large" style={styles.marginBottom} onPress={handleLogin}>
+          Zaloguj się
+        </Button>
+        <Button
+          size="large"
+          style={styles.button}
+          appearance="outline"
+          onPress={() => navigation.navigate("Register")}
+        >
+          Rejestracja
+        </Button>
+      </View>
+    </Layout>
   );
 };
 
@@ -80,7 +80,6 @@ const themedStyles = StyleService.create({
   container: {
     flex: 1,
     padding: 16,
-    justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "color-primary-600",
   },
